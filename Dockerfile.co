@@ -1,0 +1,20 @@
+# Use Python base image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install API requirements
+RUN pip install --no-cache-dir tensorflow fastapi uvicorn numpy
+
+# Copy the model
+COPY weather-model_fixed /app/weather-model_fixed
+
+# Copy the API code
+COPY weather_api.py .
+
+# Expose port
+EXPOSE 8000
+
+# Run the API
+CMD ["python", "weather_api.py"]
